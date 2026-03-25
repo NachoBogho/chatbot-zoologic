@@ -3,27 +3,34 @@ const fs = require('fs');
 const path = require('path');
 
 // ── Base de conocimiento ──────────────────────────────────────────────────────
-// En Vercel, process.cwd() apunta a la raíz del proyecto (/var/task)
-const knowledge = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), 'knowledge/knowledge.json'), 'utf-8')
-);
+// Intentamos dos rutas posibles porque en Vercel el cwd puede variar
+let knowledge;
+try {
+  const knowledgePath =
+    path.join(__dirname, '../knowledge/knowledge.json');
+  knowledge = JSON.parse(fs.readFileSync(knowledgePath, 'utf-8'));
+} catch (e) {
+  try {
+    const knowledgePath = path.join(process.cwd(), 'knowledge/knowledge.json');
+    knowledge = JSON.parse(fs.readFileSync(knowledgePath, 'utf-8'));
+  } catch (e2) {
+    console.error('[Knowledge] No se pudo cargar knowledge.json:', e2.message);
+    knowledge = { empresa: { nombre: 'Zoologic', descripcion: '', contacto: { email: '', web: '' } }, productos: [], faq: [] };
+  }
+}
 
 // ── Cliente OpenAI ────────────────────────────────────────────────────────────
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ── Sesiones en memoria ───────────────────────────────────────────────────────
-// Nota: las serverless functions son efímeras. El historial persiste mientras
-// la instancia esté caliente, pero puede resetearse entre invocaciones.
-// Es aceptable para la demo; para producción usar Redis o similar.
 const sessions = new Map();
 const MAX_HISTORY = 10;
 
-// ── RAG simple: búsqueda por keywords ────────────────────────────────────────
+// ── RAG simple ────────────────────────────────────────────────────────────────
 function searchKnowledge(userMessage) {
   const msg = userMessage.toLowerCase();
   const results = [];
 
-  // Info general de la empresa (siempre incluida)
   results.push(
     `## Empresa\n${knowledge.empresa.nombre}: ${knowledge.empresa.descripcion}\n` +
     `Contacto: ${knowledge.empresa.contacto.email} | ${knowledge.empresa.contacto.web}`
@@ -52,18 +59,14 @@ function searchKnowledge(userMessage) {
     }
   }
 
-  // Si no encontró producto específico, incluir resumen de todos
   if (results.length === 1) {
     knowledge.productos.forEach((p) => {
       results.push(`## ${p.nombre}\n${p.descripcion}`);
     });
   }
 
-  // FAQs relevantes
   const faqTriggers = ['soporte', 'precio', 'costo', 'prueba', 'demo', 'implementación', 'nube', 'integración', 'capacitación', 'contacto', 'asesor', 'diferencia', '?', 'cómo', 'cuánto', 'cuál'];
-  const isFaqQuery = faqTriggers.some((kw) => msg.includes(kw));
-
-  if (isFaqQuery) {
+  if (faqTriggers.some((kw) => msg.includes(kw))) {
     const relevantFaqs = knowledge.faq.filter((faq) => {
       const faqText = (faq.pregunta + ' ' + faq.respuesta).toLowerCase();
       return msg.split(' ').some((word) => word.length > 3 && faqText.includes(word));
@@ -100,13 +103,18 @@ ${context}`;
 
 // ── Handler principal ─────────────────────────────────────────────────────────
 module.exports = async function handler(req, res) {
-  // CORS — necesario si el widget se embebe en dominios externos
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
+
+  // Verificar API key antes de procesar
+  if (!process.env.OPENAI_API_KEY) {
+    console.error('[Config] OPENAI_API_KEY no está configurada en las variables de entorno de Vercel');
+    return res.status(500).json({ error: 'El servicio no está configurado correctamente. Falta la API key.' });
+  }
 
   const { message, sessionId } = req.body || {};
 
@@ -117,12 +125,10 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'El campo "sessionId" es requerido.' });
   }
 
-  // Historial de sesión
   if (!sessions.has(sessionId)) sessions.set(sessionId, []);
   const history = sessions.get(sessionId);
 
-  const userMessage = { role: 'user', content: message.trim() };
-  history.push(userMessage);
+  history.push({ role: 'user', content: message.trim() });
 
   const context = searchKnowledge(message);
 
@@ -147,8 +153,8 @@ module.exports = async function handler(req, res) {
 
     return res.json({ reply });
   } catch (error) {
-    console.error('[Vercel Chat Error]', error?.message || error);
-    if (error?.status === 401) return res.status(500).json({ error: 'Error de autenticación con OpenAI.' });
+    console.error('[OpenAI Error]', error?.status, error?.message);
+    if (error?.status === 401) return res.status(500).json({ error: 'API key de OpenAI inválida o no configurada en Vercel.' });
     if (error?.status === 429) return res.status(429).json({ error: 'Límite de solicitudes alcanzado. Intentá en unos segundos.' });
     return res.status(500).json({ error: 'Error al procesar el mensaje. Intentá nuevamente.' });
   }
