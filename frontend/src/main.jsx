@@ -71,10 +71,10 @@ if (typeof window !== 'undefined') {
   window.ZoologicChatbot = ZoologicChatbot;
 }
 
-// Auto-inicializar solo en desarrollo
-if (import.meta.env?.DEV) {
-  injectFont();
-  ZoologicChatbot.init();
-}
+// Auto-inicializar siempre (dev y producción).
+// En modo IIFE (widget embebible) el usuario puede llamar init() de nuevo
+// con su configuración; el mounting ya hecho es un no-op seguro.
+injectFont();
+ZoologicChatbot.init();
 
 export default ZoologicChatbot;
