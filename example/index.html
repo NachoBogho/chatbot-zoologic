@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Sitio Web - Con Chatbot Zoologic</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+    h1 { color: #1a56db; }
+    p { max-width: 600px; line-height: 1.6; }
+    .note {
+      background: #fef9c3;
+      border-left: 4px solid #eab308;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ejemplo de Sitio Web</h1>
+  <p>
+    Este es un sitio web de ejemplo que tiene el chatbot de Zoologic embebido.
+    Hacé clic en el botón azul en la esquina inferior derecha para probarlo.
+  </p>
+  <div class="note">
+    <strong>Nota:</strong> Para que funcione, el backend debe estar corriendo en
+    <code>http://localhost:3001</code> y debe tener configurada la API key de OpenAI.
+  </div>
+
+  <!-- 1. El div donde se monta el widget -->
+  <div id="zoologic-chatbot"></div>
+
+  <!-- 2. El script del widget (generado por `npm run build` en /frontend) -->
+  <script src="../frontend/dist/chatbot.iife.js"></script>
+
+  <!-- 3. Inicialización con configuración -->
+  <script>
+    ZoologicChatbot.init({
+      apiUrl: 'http://localhost:3001',
+      containerId: 'zoologic-chatbot',
+      theme: 'light'
+    });
+  </script>
+</body>
+</html>

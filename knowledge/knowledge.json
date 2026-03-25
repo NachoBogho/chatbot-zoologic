@@ -1,0 +1,122 @@
+{
+  "empresa": {
+    "nombre": "Zoologic",
+    "descripcion": "Zoologic es una empresa argentina de software especializada en soluciones tecnológicas para la gestión y optimización de operaciones empresariales.",
+    "pais": "Argentina",
+    "contacto": {
+      "email": "info@zoologic.com.ar",
+      "web": "www.zoologic.com.ar"
+    }
+  },
+  "productos": [
+    {
+      "id": "pantera",
+      "nombre": "Pantera",
+      "categoria": "ERP / Gestión empresarial",
+      "descripcion": "Sistema integral de gestión empresarial (ERP) diseñado para medianas y grandes empresas. Centraliza operaciones de finanzas, RRHH, logística y producción en una sola plataforma.",
+      "caracteristicas": [
+        "Gestión de inventario en tiempo real",
+        "Módulo financiero y contable",
+        "Gestión de recursos humanos y liquidación de sueldos",
+        "Planificación de producción",
+        "Reportes y dashboards avanzados",
+        "Integración con sistemas externos vía API REST",
+        "Acceso web y mobile"
+      ],
+      "casos_de_uso": [
+        "Empresas manufactureras",
+        "Distribuidoras",
+        "Empresas con múltiples sucursales"
+      ],
+      "precio": "Consultar con un asesor según cantidad de usuarios y módulos"
+    },
+    {
+      "id": "lince",
+      "nombre": "Lince",
+      "categoria": "CRM / Gestión comercial",
+      "descripcion": "CRM potente y flexible para equipos de ventas y marketing. Permite gestionar clientes, oportunidades, campañas y automatizar el seguimiento comercial.",
+      "caracteristicas": [
+        "Pipeline de ventas visual",
+        "Seguimiento de leads y oportunidades",
+        "Automatización de correos y recordatorios",
+        "Gestión de contactos y cuentas",
+        "Integración con WhatsApp y email",
+        "Reportes de performance comercial",
+        "App móvil para vendedores"
+      ],
+      "casos_de_uso": [
+        "Equipos de ventas B2B",
+        "Agencias y consultoras",
+        "Empresas con ciclos de venta largos"
+      ],
+      "precio": "Consultar con un asesor según cantidad de usuarios"
+    },
+    {
+      "id": "dragonfish",
+      "nombre": "Dragonfish",
+      "categoria": "Analítica de datos / Business Intelligence",
+      "descripcion": "Plataforma de Business Intelligence y analítica avanzada. Conecta múltiples fuentes de datos y genera dashboards interactivos para toma de decisiones basadas en datos.",
+      "caracteristicas": [
+        "Dashboards interactivos en tiempo real",
+        "Conexión a múltiples fuentes de datos (SQL, Excel, APIs)",
+        "Análisis predictivo con machine learning",
+        "Alertas automáticas por métricas clave",
+        "Reportes automatizados con envío programado",
+        "Visualizaciones personalizables",
+        "Acceso por roles y permisos"
+      ],
+      "casos_de_uso": [
+        "Gerencias que necesitan visibilidad de KPIs",
+        "Equipos de data analytics",
+        "Empresas que manejan grandes volúmenes de datos"
+      ],
+      "precio": "Consultar con un asesor según volumen de datos y usuarios"
+    }
+  ],
+  "faq": [
+    {
+      "pregunta": "¿Los sistemas funcionan en la nube?",
+      "respuesta": "Sí, todos los sistemas de Zoologic están disponibles como SaaS en la nube, lo que garantiza accesibilidad desde cualquier dispositivo con conexión a internet. También ofrecemos opciones de instalación on-premise para clientes que lo requieran."
+    },
+    {
+      "pregunta": "¿Hacen integraciones con otros sistemas?",
+      "respuesta": "Sí, todos nuestros productos cuentan con APIs REST que permiten integrarse con sistemas externos. También ofrecemos integraciones nativas con las principales plataformas del mercado."
+    },
+    {
+      "pregunta": "¿Ofrecen soporte técnico?",
+      "respuesta": "Sí, contamos con soporte técnico en español con diferentes niveles de atención según el plan contratado: soporte básico por ticket, soporte prioritario con SLA garantizado y soporte dedicado con un ejecutivo asignado."
+    },
+    {
+      "pregunta": "¿Cuánto tiempo toma la implementación?",
+      "respuesta": "El tiempo de implementación varía según el producto y la complejidad de cada empresa. Pantera puede tardar entre 4 y 12 semanas. Lince entre 1 y 4 semanas. Dragonfish entre 2 y 6 semanas."
+    },
+    {
+      "pregunta": "¿Tienen período de prueba?",
+      "respuesta": "Sí, ofrecemos demos personalizadas y en algunos casos pruebas piloto acotadas. Contactá con un asesor para coordinar una demostración sin compromiso."
+    },
+    {
+      "pregunta": "¿Los precios son en pesos o dólares?",
+      "respuesta": "Los precios pueden cotizarse en pesos argentinos o dólares según el acuerdo con el cliente. Contactá con un asesor para recibir una cotización personalizada."
+    },
+    {
+      "pregunta": "¿Ofrecen capacitación?",
+      "respuesta": "Sí, incluimos capacitación inicial para todos los usuarios en el proceso de implementación. También contamos con documentación, videos tutoriales y capacitaciones adicionales opcionales."
+    },
+    {
+      "pregunta": "¿Cómo puedo contactar a un asesor?",
+      "respuesta": "Podés contactarnos por email en info@zoologic.com.ar o a través de nuestra web www.zoologic.com.ar. Un asesor se comunicará con vos en menos de 24 horas hábiles."
+    },
+    {
+      "pregunta": "¿Cuál es la diferencia entre Pantera y Lince?",
+      "respuesta": "Pantera es un ERP completo para gestión integral de la empresa (finanzas, RRHH, logística, producción). Lince es un CRM enfocado en el área comercial y de ventas. Pueden usarse por separado o en conjunto ya que se integran entre sí."
+    },
+    {
+      "pregunta": "¿Dragonfish se puede conectar a Pantera o Lince?",
+      "respuesta": "Sí, Dragonfish está diseñado para conectarse nativamente con Pantera y Lince, además de otras fuentes de datos externas."
+    }
+  ],
+  "leads": {
+    "mensaje_captura": "Para que un asesor se comunique con vos, necesito tu nombre y correo electrónico.",
+    "campos": ["nombre", "email", "empresa", "consulta"]
+  }
+}
