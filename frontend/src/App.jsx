@@ -1,16 +1,12 @@
 import useChatStore from './store/chatStore';
 import ChatWindow from './components/ChatWindow';
 
-/**
- * Componente raíz del widget.
- * Botón flotante + ventana de chat, posicionados en esquina inferior derecha.
- */
 export default function App() {
   const { isOpen, toggleChat } = useChatStore();
 
   return (
     <div
-      className="zl-widget-root"
+      className="pt-widget-root"
       style={{
         position: 'fixed',
         bottom: '24px',
@@ -22,20 +18,18 @@ export default function App() {
         gap: '12px',
       }}
     >
-      {/* Ventana del chat */}
       {isOpen && <ChatWindow />}
 
-      {/* Botón flotante */}
       <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {/* Onda de pulso (solo cuando está cerrado) */}
+        {/* Onda de pulso */}
         {!isOpen && (
           <span
             style={{
               position: 'absolute',
               inset: 0,
               borderRadius: '50%',
-              background: 'var(--zl-blue)',
-              animation: 'zlPulse 2.4s ease-out infinite',
+              background: 'var(--pt-orange)',
+              animation: 'ptPulse 2.6s ease-out infinite',
               pointerEvents: 'none',
             }}
           />
@@ -43,32 +37,32 @@ export default function App() {
 
         <button
           onClick={toggleChat}
-          aria-label={isOpen ? 'Cerrar chat con Zara' : 'Abrir chat con Zara'}
+          aria-label={isOpen ? 'Cerrar chat' : 'Hablar con Pantera'}
           style={{
             position: 'relative',
-            width: '56px',
-            height: '56px',
+            width: '58px',
+            height: '58px',
             borderRadius: '50%',
-            background: 'var(--zl-gradient)',
+            background: 'var(--pt-gradient)',
             border: 'none',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: 'var(--zl-shadow-btn)',
+            boxShadow: 'var(--pt-shadow-btn)',
             transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            animation: 'zlPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            animation: 'ptPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
             color: '#fff',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.08)';
-            e.currentTarget.style.boxShadow = '0 6px 20px rgba(26, 86, 219, 0.50)';
+            e.currentTarget.style.boxShadow = '0 6px 24px rgba(124, 58, 237, 0.60)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = 'var(--zl-shadow-btn)';
+            e.currentTarget.style.boxShadow = 'var(--pt-shadow-btn)';
           }}
-          onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
+          onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.94)'; }}
           onMouseUp={(e) => { e.currentTarget.style.transform = 'scale(1.08)'; }}
         >
           {isOpen ? <IconClose /> : <IconChat />}
@@ -80,18 +74,22 @@ export default function App() {
 
 function IconChat() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C6.477 2 2 6.18 2 11.333c0 2.812 1.304 5.332 3.375 7.083L4.5 22l4.313-1.917A11.43 11.43 0 0012 20.667c5.523 0 10-4.18 10-9.334C22 6.18 17.523 2 12 2z" fill="white"/>
-      <circle cx="8" cy="11" r="1.5" fill="var(--zl-blue)"/>
-      <circle cx="12" cy="11" r="1.5" fill="var(--zl-blue)"/>
-      <circle cx="16" cy="11" r="1.5" fill="var(--zl-blue)"/>
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <path
+        d="M13 2.5C7.201 2.5 2.5 6.868 2.5 12.25c0 2.992 1.38 5.672 3.563 7.524L5 23.5l4.688-2.083A12.37 12.37 0 0013 22c5.799 0 10.5-4.368 10.5-9.75S18.799 2.5 13 2.5z"
+        fill="white"
+        opacity="0.95"
+      />
+      <circle cx="9"  cy="12.25" r="1.6" fill="var(--pt-orange)" />
+      <circle cx="13" cy="12.25" r="1.6" fill="var(--pt-orange)" />
+      <circle cx="17" cy="12.25" r="1.6" fill="var(--pt-orange)" />
     </svg>
   );
 }
 
 function IconClose() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <path d="M15 5L5 15M5 5l10 10" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
     </svg>
   );

@@ -1,122 +1,259 @@
 {
   "empresa": {
-    "nombre": "Zoologic",
-    "descripcion": "Zoologic es una empresa argentina de software especializada en soluciones tecnológicas para la gestión y optimización de operaciones empresariales.",
-    "pais": "Argentina",
-    "contacto": {
-      "email": "info@zoologic.com.ar",
-      "web": "www.zoologic.com.ar"
-    }
+    "nombre": "Zoo Logic",
+    "descripcion": "Empresa argentina líder en el desarrollo de sistemas de gestión para puntos de venta.",
+    "web": "https://www.zoologic.com.ar"
   },
-  "productos": [
+  "producto": {
+    "nombre": "Pantera Comercios",
+    "descripcion": "Sistema de gestión online (SaaS) para comercios físicos y digitales en Argentina. Permite gestionar ventas, stock, facturación electrónica, clientes, proveedores, caja y eCommerce desde cualquier dispositivo con conexión a internet.",
+    "sitio_web": "https://www.pantera.com.ar/",
+    "app": "https://app.pantera.com.ar/",
+    "registro": "https://app.pantera.com.ar/account/register-tenant",
+    "docs": "https://docs.pantera.com.ar/",
+    "manual": "https://docs.pantera.com.ar/manual/index.html",
+    "videos": "https://docs.pantera.com.ar/videos.html",
+    "soporte_form": "https://www.pantera.com.ar/pantera-comercios-solicitud-de-soporte",
+    "campus": "http://campus.zoologic.com.ar/"
+  },
+  "propuesta_valor": {
+    "modelo": "Pagá por lo que usás. Sin planes fijos ni contratos de permanencia.",
+    "puntos": [
+      "Si te tomás vacaciones, NO pagás",
+      "Sin límites de usuarios ni funciones",
+      "Escalable según el crecimiento del negocio",
+      "Ideal para negocios dinámicos o estacionales",
+      "Sin compromisos de largo plazo",
+      "No requiere tarjeta de crédito para registrarse"
+    ],
+    "vs_competencia": "A diferencia de los planes fijos de la competencia, con Pantera pagás solo lo que necesitás cada mes. Sin restricciones por plan, sin upgrade económico para crecer, sin contratos cerrados."
+  },
+  "capa_gratuita": {
+    "descripcion": "Pantera Comercios tiene una capa de uso completamente gratuita.",
+    "incluye": [
+      "1 usuario",
+      "1 depósito",
+      "1 local (sitio)",
+      "1 razón social",
+      "1 cuenta eCommerce",
+      "Hasta 10 comprobantes de venta por mes"
+    ],
+    "nota": "No se requiere tarjeta de crédito para registrarse ni para usar la capa gratuita. Si no superás ese límite mensual, lo usás todos los meses sin costo."
+  },
+  "precios": {
+    "modelo": "Se cobra por los recursos que se usan cada mes: comprobantes emitidos, usuarios activos, locales, depósitos y razones sociales. Los valores no incluyen IVA ni otros impuestos.",
+    "cotizador": "Hay un cotizador online en https://www.pantera.com.ar/ para calcular el costo según el negocio.",
+    "ejemplos": [
+      {
+        "tipo": "Joyería",
+        "locales": 1,
+        "costo_aprox": "$17.000 + IVA/mes"
+      },
+      {
+        "tipo": "Tienda de ropa chica con ecommerce",
+        "locales": 1,
+        "usuarios": 2,
+        "depositos": 1,
+        "ecommerce": 1,
+        "comprobantes": 200,
+        "costo_aprox": "$19.000 + IVA/mes"
+      },
+      {
+        "tipo": "Librería pequeña",
+        "locales": 1,
+        "usuarios": 2,
+        "depositos": 1,
+        "ecommerce": 1,
+        "comprobantes": 750,
+        "costo_aprox": "$38.000 + IVA/mes"
+      },
+      {
+        "tipo": "Cadena de heladerías",
+        "locales": 3,
+        "usuarios": 5,
+        "depositos": 2,
+        "comprobantes": 1200,
+        "costo_aprox": "$72.000 + IVA/mes"
+      },
+      {
+        "tipo": "Bazar",
+        "locales": 2,
+        "usuarios": 4,
+        "depositos": 2,
+        "ecommerce": 2,
+        "comprobantes": 2000,
+        "costo_aprox": "$83.000 + IVA/mes"
+      },
+      {
+        "tipo": "Tienda de electrónica con ecommerce",
+        "locales": 2,
+        "usuarios": 6,
+        "depositos": 3,
+        "ecommerce": 2,
+        "comprobantes": 1600,
+        "costo_aprox": "$89.000 + IVA/mes"
+      }
+    ]
+  },
+  "funcionalidades": [
     {
-      "id": "pantera",
-      "nombre": "Pantera",
-      "categoria": "ERP / Gestión empresarial",
-      "descripcion": "Sistema integral de gestión empresarial (ERP) diseñado para medianas y grandes empresas. Centraliza operaciones de finanzas, RRHH, logística y producción en una sola plataforma.",
-      "caracteristicas": [
-        "Gestión de inventario en tiempo real",
-        "Módulo financiero y contable",
-        "Gestión de recursos humanos y liquidación de sueldos",
-        "Planificación de producción",
-        "Reportes y dashboards avanzados",
-        "Integración con sistemas externos vía API REST",
-        "Acceso web y mobile"
-      ],
-      "casos_de_uso": [
-        "Empresas manufactureras",
-        "Distribuidoras",
-        "Empresas con múltiples sucursales"
-      ],
-      "precio": "Consultar con un asesor según cantidad de usuarios y módulos"
+      "nombre": "Ventas Online (eCommerce)",
+      "keywords": ["ecommerce", "online", "mercado libre", "tiendanube", "tienda", "venta online", "comprobante"],
+      "descripcion": "Facturación automática de todas las ventas de Mercado Libre y Tiendanube. Envío automático de comprobantes a los clientes. Administración de múltiples cuentas desde un solo lugar."
     },
     {
-      "id": "lince",
-      "nombre": "Lince",
-      "categoria": "CRM / Gestión comercial",
-      "descripcion": "CRM potente y flexible para equipos de ventas y marketing. Permite gestionar clientes, oportunidades, campañas y automatizar el seguimiento comercial.",
-      "caracteristicas": [
-        "Pipeline de ventas visual",
-        "Seguimiento de leads y oportunidades",
-        "Automatización de correos y recordatorios",
-        "Gestión de contactos y cuentas",
-        "Integración con WhatsApp y email",
-        "Reportes de performance comercial",
-        "App móvil para vendedores"
-      ],
-      "casos_de_uso": [
-        "Equipos de ventas B2B",
-        "Agencias y consultoras",
-        "Empresas con ciclos de venta largos"
-      ],
-      "precio": "Consultar con un asesor según cantidad de usuarios"
+      "nombre": "Gestión de Stock",
+      "keywords": ["stock", "inventario", "producto", "artículo", "variante", "talle", "color", "sku", "depósito", "mercaderia"],
+      "descripcion": "Importación de productos desde Mercado Libre y Tiendanube. Stock para publicaciones y Full Envíos. Artículos con variantes (talle, color, medidas, peso, etc.). Entradas y salidas de stock."
     },
     {
-      "id": "dragonfish",
-      "nombre": "Dragonfish",
-      "categoria": "Analítica de datos / Business Intelligence",
-      "descripcion": "Plataforma de Business Intelligence y analítica avanzada. Conecta múltiples fuentes de datos y genera dashboards interactivos para toma de decisiones basadas en datos.",
-      "caracteristicas": [
-        "Dashboards interactivos en tiempo real",
-        "Conexión a múltiples fuentes de datos (SQL, Excel, APIs)",
-        "Análisis predictivo con machine learning",
-        "Alertas automáticas por métricas clave",
-        "Reportes automatizados con envío programado",
-        "Visualizaciones personalizables",
-        "Acceso por roles y permisos"
-      ],
-      "casos_de_uso": [
-        "Gerencias que necesitan visibilidad de KPIs",
-        "Equipos de data analytics",
-        "Empresas que manejan grandes volúmenes de datos"
-      ],
-      "precio": "Consultar con un asesor según volumen de datos y usuarios"
+      "nombre": "Caja",
+      "keywords": ["caja", "cierre", "ingreso", "efectivo", "dinero", "fondo"],
+      "descripcion": "Registro integral de todos los ingresos del negocio. Carga automática de pagos electrónicos (Mercado Pago, tarjetas de crédito). Cierre de caja."
+    },
+    {
+      "nombre": "Ventas en Local Físico",
+      "keywords": ["local", "físico", "punto de venta", "factura", "facturación", "venta presencial", "cobro", "mail", "correo"],
+      "descripcion": "Facturación electrónica sencilla. Envío automático de facturas por mail (individual o por lote). Múltiples puntos de venta. Todos los medios de pago habituales."
+    },
+    {
+      "nombre": "Listas de Precios",
+      "keywords": ["precio", "lista", "mayorista", "minorista", "liquidación", "promoción", "descuento"],
+      "descripcion": "Sincronización de listas de precios con Mercado Libre y Tiendanube. Múltiples listas para mayoristas, minoristas, liquidaciones y promociones."
+    },
+    {
+      "nombre": "Compras y Proveedores",
+      "keywords": ["proveedor", "compra", "gasto", "factura de compra", "orden de compra"],
+      "descripcion": "Gestión completa de la operatoria con proveedores. Registro de comprobantes de gastos y compras."
+    },
+    {
+      "nombre": "Clientes",
+      "keywords": ["cliente", "cobranza", "cuenta corriente", "seña", "cheque", "contacto", "fiscal"],
+      "descripcion": "Gestión de cobranzas y cuentas corrientes. Uso de señas. Cheques de terceros. Alta de clientes con información de contacto y datos fiscales."
+    },
+    {
+      "nombre": "Importadores Masivos",
+      "keywords": ["importar", "excel", "masivo", "carga", "archivo", "planilla"],
+      "descripcion": "Importación masiva de productos, stock y precios desde archivos Excel. Carga rápida de existencias."
+    },
+    {
+      "nombre": "Seguridad y Permisos",
+      "keywords": ["seguridad", "permiso", "rol", "usuario", "acceso", "auditoría", "contraseña"],
+      "descripcion": "Definición de roles y niveles de permisos por usuario. Auditoría detallada de todas las acciones. Datos seguros en la nube."
+    },
+    {
+      "nombre": "Estadísticas e Informes",
+      "keywords": ["estadística", "informe", "reporte", "métrica", "análisis", "dashboard", "tiempo real"],
+      "descripcion": "Informes de venta, stock y caja en tiempo real para tomar mejores decisiones comerciales."
+    },
+    {
+      "nombre": "Etiquetas y Categorías",
+      "keywords": ["etiqueta", "código de barras", "categoría", "clasificación", "impresión"],
+      "descripcion": "Creación e impresión de etiquetas de códigos de barras personalizadas. Categorías y equivalencias en productos."
+    }
+  ],
+  "integraciones": [
+    {
+      "nombre": "Mercado Libre",
+      "descripcion": "Sincronización automática de productos, precios, stock, facturación y envío de comprobantes. Compatible con múltiples cuentas."
+    },
+    {
+      "nombre": "Tiendanube",
+      "descripcion": "Sincronización automática de productos, precios, stock, facturación y envío de comprobantes. Compatible con múltiples tiendas."
+    },
+    {
+      "nombre": "Mercado Pago",
+      "descripcion": "Carga automática de formas de pago electrónicas en el módulo de caja."
+    }
+  ],
+  "requerimientos": "Solo necesitás conexión a internet. No requiere instalación ni requerimientos técnicos complejos. Compatible con cualquier dispositivo: computadora, tablet o celular. Solución 100% web (nube).",
+  "registro": {
+    "url": "https://app.pantera.com.ar/account/register-tenant",
+    "nota": "Es gratis. No se requiere tarjeta de crédito.",
+    "pasos": [
+      "Ingresá a https://app.pantera.com.ar/account/register-tenant",
+      "Registrá los datos de tu empresa y creá tu usuario (nombre, email y contraseña)",
+      "Completá tu razón social y sitio comercial",
+      "Cargá o sincronizá tus productos desde Mercado Libre o Tiendanube",
+      "¡Empezá a vender!"
+    ]
+  },
+  "soporte": {
+    "canales": [
+      "Chat online con soporte técnico para consultas funcionales",
+      "Chat online con atención al cliente para consultas administrativas",
+      "Formulario de soporte: https://www.pantera.com.ar/pantera-comercios-solicitud-de-soporte"
+    ],
+    "capacitacion": [
+      "Manual online: https://docs.pantera.com.ar/manual/index.html",
+      "Videos de aprendizaje: https://docs.pantera.com.ar/videos.html",
+      "Video de primeros pasos: https://vimeo.com/581307007/a269c3c330",
+      "Campus Virtual Zoo Logic: http://campus.zoologic.com.ar/"
+    ],
+    "demo": "Podés solicitar una demo gratuita en https://www.pantera.com.ar/pantera-comercios-solicitud-de-soporte — un ejecutivo se contacta sin compromiso."
+  },
+  "testimonios": [
+    {
+      "nombre": "María Cecilia Ballanti — Ambientar",
+      "texto": "Es la primera vez que usamos un sistema en nuestro local y Pantera nos permitió tener el control diario de todo, desde movimientos de caja hasta artículos a reponer según ventas. Es destacable el soporte técnico, guiándonos en cada consulta."
+    },
+    {
+      "nombre": "Cintia Cavallo — Tiziana Deco",
+      "texto": "Nuestra experiencia con Pantera es un antes y un después. Nos ordenó la vida! Al ordenar nuestra empresa, estamos más tranquilos. Pantera es sinónimo de organización, practicidad y concreción."
     }
   ],
   "faq": [
     {
-      "pregunta": "¿Los sistemas funcionan en la nube?",
-      "respuesta": "Sí, todos los sistemas de Zoologic están disponibles como SaaS en la nube, lo que garantiza accesibilidad desde cualquier dispositivo con conexión a internet. También ofrecemos opciones de instalación on-premise para clientes que lo requieran."
+      "pregunta": "¿Cuánto voy a pagar por el software?",
+      "respuesta": "Pantera tiene una capa gratuita: 1 usuario, 1 local, hasta 10 comprobantes por mes, sin costo. Si necesitás más, pagás solo por lo que uses, sin plan fijo ni contrato. Podés calcular tu costo exacto con el cotizador en www.pantera.com.ar."
     },
     {
-      "pregunta": "¿Hacen integraciones con otros sistemas?",
-      "respuesta": "Sí, todos nuestros productos cuentan con APIs REST que permiten integrarse con sistemas externos. También ofrecemos integraciones nativas con las principales plataformas del mercado."
+      "pregunta": "¿Hay contrato de permanencia?",
+      "respuesta": "No. No hay contrato ni permanencia mínima. Usás mientras pagás. Si te tomás vacaciones o temporada baja, no pagás."
     },
     {
-      "pregunta": "¿Ofrecen soporte técnico?",
-      "respuesta": "Sí, contamos con soporte técnico en español con diferentes niveles de atención según el plan contratado: soporte básico por ticket, soporte prioritario con SLA garantizado y soporte dedicado con un ejecutivo asignado."
+      "pregunta": "¿Puedo pedir una demo?",
+      "respuesta": "Sí. Completando el formulario en https://www.pantera.com.ar/pantera-comercios-solicitud-de-soporte un ejecutivo se comunica para mostrar el sistema sin compromiso."
     },
     {
-      "pregunta": "¿Cuánto tiempo toma la implementación?",
-      "respuesta": "El tiempo de implementación varía según el producto y la complejidad de cada empresa. Pantera puede tardar entre 4 y 12 semanas. Lince entre 1 y 4 semanas. Dragonfish entre 2 y 6 semanas."
+      "pregunta": "¿Cómo accedo a la prueba gratuita?",
+      "respuesta": "Registrándote en https://app.pantera.com.ar/account/register-tenant — es gratis y no pide tarjeta de crédito. Si no superás la capa gratuita, seguís usándolo sin costo mes a mes."
     },
     {
-      "pregunta": "¿Tienen período de prueba?",
-      "respuesta": "Sí, ofrecemos demos personalizadas y en algunos casos pruebas piloto acotadas. Contactá con un asesor para coordinar una demostración sin compromiso."
+      "pregunta": "¿Funciona desde el celular o tablet?",
+      "respuesta": "Sí, es 100% web. Podés acceder desde cualquier dispositivo con internet: computadora, tablet o celular."
     },
     {
-      "pregunta": "¿Los precios son en pesos o dólares?",
-      "respuesta": "Los precios pueden cotizarse en pesos argentinos o dólares según el acuerdo con el cliente. Contactá con un asesor para recibir una cotización personalizada."
+      "pregunta": "¿Necesito saber de computación para usarlo?",
+      "respuesta": "No. Es muy intuitivo. Además tiene soporte online, manual en línea y videos explicativos."
     },
     {
-      "pregunta": "¿Ofrecen capacitación?",
-      "respuesta": "Sí, incluimos capacitación inicial para todos los usuarios en el proceso de implementación. También contamos con documentación, videos tutoriales y capacitaciones adicionales opcionales."
+      "pregunta": "¿Tiene integración con Mercado Libre?",
+      "respuesta": "Sí. Sincroniza automáticamente productos, precios, stock y facturación con Mercado Libre. También con Tiendanube y Mercado Pago."
     },
     {
-      "pregunta": "¿Cómo puedo contactar a un asesor?",
-      "respuesta": "Podés contactarnos por email en info@zoologic.com.ar o a través de nuestra web www.zoologic.com.ar. Un asesor se comunicará con vos en menos de 24 horas hábiles."
+      "pregunta": "¿Puedo importar productos y precios desde Excel?",
+      "respuesta": "Sí. El sistema tiene importadores masivos para cargar productos, stock y precios desde archivos Excel."
     },
     {
-      "pregunta": "¿Cuál es la diferencia entre Pantera y Lince?",
-      "respuesta": "Pantera es un ERP completo para gestión integral de la empresa (finanzas, RRHH, logística, producción). Lince es un CRM enfocado en el área comercial y de ventas. Pueden usarse por separado o en conjunto ya que se integran entre sí."
+      "pregunta": "¿Dónde encuentro el manual y los videos?",
+      "respuesta": "En https://docs.pantera.com.ar/ encontrás el manual completo y los videos de aprendizaje organizados por nivel."
     },
     {
-      "pregunta": "¿Dragonfish se puede conectar a Pantera o Lince?",
-      "respuesta": "Sí, Dragonfish está diseñado para conectarse nativamente con Pantera y Lince, además de otras fuentes de datos externas."
+      "pregunta": "¿Qué pasa en temporada baja o vacaciones?",
+      "respuesta": "Si no usás el sistema, no pagás. Es una de las grandes ventajas: pagás solo por los recursos que consumís ese mes."
+    },
+    {
+      "pregunta": "¿Puedo manejar varios locales?",
+      "respuesta": "Sí. Podés crear múltiples locales y puntos de venta dentro del mismo sistema, gestionando todo de forma unificada."
+    },
+    {
+      "pregunta": "¿Tiene facturación electrónica?",
+      "respuesta": "Sí. Pantera emite facturas electrónicas tanto para ventas en local físico como para ventas online (ML y Tiendanube), y las envía automáticamente por mail al cliente."
+    },
+    {
+      "pregunta": "¿Cómo accedo al soporte?",
+      "respuesta": "Tenés chat online con soporte técnico (consultas funcionales) y con atención al cliente (consultas administrativas), disponibles directamente desde el sitio."
     }
-  ],
-  "leads": {
-    "mensaje_captura": "Para que un asesor se comunique con vos, necesito tu nombre y correo electrónico.",
-    "campos": ["nombre", "email", "empresa", "consulta"]
-  }
+  ]
 }

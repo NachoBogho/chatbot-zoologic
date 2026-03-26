@@ -1,46 +1,33 @@
 import { create } from 'zustand';
 
-// Genera un ID de sesión único por visita del usuario
 const generateSessionId = () =>
   `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-/**
- * Store global del chatbot usando Zustand.
- * Maneja: apertura/cierre, historial de mensajes, estado de carga.
- */
 const useChatStore = create((set, get) => ({
-  // Estado UI
   isOpen: false,
-
-  // Identificador único de sesión para el backend
   sessionId: generateSessionId(),
 
-  // Historial de mensajes: { id, role: 'user' | 'assistant', content, timestamp }
   messages: [
     {
       id: 'welcome',
       role: 'assistant',
-      content: '¡Hola! Soy Zara, tu asistente virtual de Zoologic. ¿En qué puedo ayudarte hoy?',
+      content: '¡Hola! Soy el asistente virtual de **Pantera Comercios**. Estoy acá para ayudarte a conocer el sistema y ver si es lo que tu negocio necesita. ¿En qué te puedo ayudar?',
       timestamp: new Date(),
     },
   ],
 
-  // Indica si el bot está esperando respuesta
-  isLoading: false,
+  // true hasta que el usuario manda su primer mensaje
+  showQuickReplies: true,
 
-  // URL de la API. En dev usa el proxy de Vite (/api → localhost:3001).
-  // En producción (Vercel) llama a /api directamente (mismo dominio).
+  isLoading: false,
   apiUrl: '/api',
 
-  // === Acciones ===
-
   toggleChat: () => set((state) => ({ isOpen: !state.isOpen })),
-  openChat: () => set({ isOpen: true }),
-  closeChat: () => set({ isOpen: false }),
+  openChat:   () => set({ isOpen: true }),
+  closeChat:  () => set({ isOpen: false }),
 
   setApiUrl: (url) => set({ apiUrl: url }),
 
-  // Agrega un mensaje al historial
   addMessage: (role, content) => {
     const message = {
       id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
@@ -52,15 +39,13 @@ const useChatStore = create((set, get) => ({
     return message;
   },
 
-  // Envía el mensaje del usuario al backend y procesa la respuesta
   sendMessage: async (content) => {
     if (!content.trim() || get().isLoading) return;
 
     const { apiUrl, sessionId, addMessage } = get();
 
-    // Agregar mensaje del usuario inmediatamente
     addMessage('user', content.trim());
-    set({ isLoading: true });
+    set({ isLoading: true, showQuickReplies: false });
 
     try {
       const response = await fetch(`${apiUrl}/chat`, {
@@ -78,7 +63,7 @@ const useChatStore = create((set, get) => ({
       addMessage('assistant', data.reply);
     } catch (error) {
       console.error('[Chatbot Error]', error);
-      addMessage('assistant', 'Hubo un error al conectar con el servidor. Por favor, intentá nuevamente en unos segundos.');
+      addMessage('assistant', 'Hubo un error al conectar. Por favor, intentá nuevamente en unos segundos.');
     } finally {
       set({ isLoading: false });
     }

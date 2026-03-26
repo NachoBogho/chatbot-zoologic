@@ -1,15 +1,11 @@
-/**
- * Indicador animado de escritura.
- * Tres puntos con animación de rebote escalonada.
- */
 export default function TypingIndicator() {
   const dotStyle = (delay) => ({
-    width: '7px',
-    height: '7px',
+    width: '6px',
+    height: '6px',
     borderRadius: '50%',
-    background: 'var(--zl-blue)',
-    opacity: 0.5,
-    animation: `zlBounce 1.3s ease-in-out ${delay}s infinite`,
+    background: 'var(--pt-orange)',
+    opacity: 0.4,
+    animation: `ptBounce 1.3s ease-in-out ${delay}s infinite`,
   });
 
   return (
@@ -18,36 +14,37 @@ export default function TypingIndicator() {
         display: 'flex',
         alignItems: 'flex-end',
         gap: '8px',
-        marginBottom: '10px',
-        animation: 'zlFadeIn 0.22s ease-out',
+        marginBottom: '12px',
+        animation: 'ptFadeIn 0.22s ease-out',
       }}
     >
       {/* Avatar */}
       <div
         style={{
-          width: '30px',
-          height: '30px',
-          borderRadius: '50%',
-          background: 'var(--zl-gradient)',
+          width: '28px',
+          height: '28px',
+          borderRadius: '9px',
+          background: 'var(--pt-gradient)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0,
-          fontSize: '15px',
-          boxShadow: '0 2px 8px rgba(26, 86, 219, 0.25)',
+          boxShadow: '0 2px 8px rgba(124, 58, 237, 0.30)',
         }}
       >
-        🦜
+        <span style={{ color: '#fff', fontWeight: 800, fontSize: '12px', letterSpacing: '-0.03em', lineHeight: 1 }}>
+          P
+        </span>
       </div>
 
       {/* Burbuja con puntos */}
       <div
         style={{
-          padding: '12px 18px',
-          borderRadius: '4px 18px 18px 18px',
-          background: 'var(--zl-surface)',
-          border: '1px solid var(--zl-border-soft)',
-          boxShadow: 'var(--zl-shadow-sm)',
+          padding: '12px 16px',
+          borderRadius: '4px 16px 16px 16px',
+          background: 'var(--pt-surface)',
+          border: '1px solid var(--pt-border-soft)',
+          boxShadow: 'var(--pt-shadow-sm)',
           display: 'flex',
           alignItems: 'center',
           gap: '5px',

@@ -6,67 +6,100 @@ const knowledgePath = path.join(__dirname, '../../knowledge/knowledge.json');
 const knowledge = JSON.parse(fs.readFileSync(knowledgePath, 'utf-8'));
 
 /**
- * Busca contenido relevante en la base de conocimiento
+ * Busca contenido relevante en la base de conocimiento de Pantera Comercios
  * según las palabras clave del mensaje del usuario.
- *
- * Implementación simple de RAG sin vector DB:
- * - Tokeniza el mensaje del usuario
- * - Busca coincidencias en productos y FAQ
- * - Retorna los fragmentos más relevantes
  */
 function searchKnowledge(userMessage) {
   const msg = userMessage.toLowerCase();
   const results = [];
 
-  // Siempre incluir info de la empresa
-  results.push(`## Empresa\n${knowledge.empresa.nombre}: ${knowledge.empresa.descripcion}\nContacto: ${knowledge.empresa.contacto.email} | ${knowledge.empresa.contacto.web}`);
+  // Info base: producto y empresa (siempre incluida)
+  results.push(
+    `## Pantera Comercios\n${knowledge.producto.descripcion}\n` +
+    `Sitio: ${knowledge.producto.sitio_web} | App: ${knowledge.producto.app}\n` +
+    `Desarrollado por ${knowledge.empresa.nombre} — ${knowledge.empresa.descripcion}`
+  );
 
-  // Palabras clave por producto
-  const productKeywords = {
-    pantera: ['pantera', 'erp', 'gestión empresarial', 'inventario', 'finanzas', 'rrhh', 'producción', 'logística', 'manufactura'],
-    lince: ['lince', 'crm', 'ventas', 'clientes', 'leads', 'comercial', 'marketing', 'oportunidades', 'pipeline'],
-    dragonfish: ['dragonfish', 'bi', 'business intelligence', 'analítica', 'dashboard', 'datos', 'reportes', 'kpi', 'métricas'],
-  };
-
-  // Verificar qué productos son relevantes
-  for (const [productId, keywords] of Object.entries(productKeywords)) {
-    const isRelevant = keywords.some((kw) => msg.includes(kw));
-    if (isRelevant || msg.includes('producto') || msg.includes('sistema') || msg.includes('solución')) {
-      const product = knowledge.productos.find((p) => p.id === productId);
-      if (product) {
-        results.push(
-          `## Producto: ${product.nombre}\n` +
-          `Categoría: ${product.categoria}\n` +
-          `Descripción: ${product.descripcion}\n` +
-          `Características: ${product.caracteristicas.join(', ')}\n` +
-          `Casos de uso: ${product.casos_de_uso.join(', ')}\n` +
-          `Precio: ${product.precio}`
-        );
-      }
-    }
+  // Propuesta de valor y modelo de precios
+  const precioKw = ['precio', 'costo', 'cuánto', 'cuanto', 'pago', 'pagar', 'plan', 'abono', 'gratis', 'gratuito', 'free', 'vacacion', 'permanencia', 'contrato', 'barato', 'económico'];
+  if (precioKw.some((kw) => msg.includes(kw))) {
+    const ejemplos = knowledge.precios.ejemplos.map((e) =>
+      `${e.tipo}: ${e.costo_aprox}${e.comprobantes ? ` (${e.comprobantes} comprobantes/mes)` : ''}`
+    ).join('\n');
+    results.push(
+      `## Modelo de Precios\n${knowledge.precios.modelo}\n` +
+      `Cotizador: ${knowledge.precios.cotizador}\n\n` +
+      `## Capa Gratuita\n${knowledge.capa_gratuita.descripcion}\nIncluye: ${knowledge.capa_gratuita.incluye.join(', ')}\n${knowledge.capa_gratuita.nota}\n\n` +
+      `## Propuesta de Valor\n${knowledge.propuesta_valor.modelo}\n${knowledge.propuesta_valor.puntos.join('\n')}\n\n` +
+      `## Ejemplos de Costos Mensuales\n${ejemplos}`
+    );
   }
 
-  // Si no encontró ningún producto específico, incluir todos (resumen)
-  if (results.length === 1) {
-    knowledge.productos.forEach((p) => {
-      results.push(`## ${p.nombre}\n${p.descripcion}`);
-    });
+  // Funcionalidades
+  const funcKw = ['función', 'funciona', 'feature', 'módulo', 'puede', 'permite', 'qué hace', 'sirve', 'herramienta', 'gestión'];
+  const matchedFuncs = knowledge.funcionalidades.filter((f) =>
+    f.keywords.some((kw) => msg.includes(kw)) || funcKw.some((kw) => msg.includes(kw))
+  );
+  if (matchedFuncs.length > 0) {
+    const funcText = matchedFuncs.map((f) => `### ${f.nombre}\n${f.descripcion}`).join('\n\n');
+    results.push(`## Funcionalidades\n${funcText}`);
   }
 
-  // Buscar FAQs relevantes
-  const faqKeywords = ['soporte', 'precio', 'costo', 'prueba', 'demo', 'implementación', 'nube', 'integración', 'capacitación', 'contacto', 'asesor', 'diferencia'];
-  const isFaqQuery = faqKeywords.some((kw) => msg.includes(kw));
+  // Integraciones
+  const integKw = ['mercado libre', 'tiendanube', 'mercado pago', 'integra', 'sincroniza', 'ml ', ' ml', 'ecommerce', 'e-commerce', 'tienda online'];
+  if (integKw.some((kw) => msg.includes(kw))) {
+    const integText = knowledge.integraciones.map((i) => `### ${i.nombre}\n${i.descripcion}`).join('\n\n');
+    results.push(`## Integraciones\n${integText}`);
+  }
 
-  if (isFaqQuery || msg.includes('?') || msg.includes('cómo') || msg.includes('cuánto') || msg.includes('cuál')) {
+  // Registro / cómo empezar
+  const registroKw = ['registr', 'empezar', 'comenzar', 'alta', 'crear cuenta', 'inicio', 'cómo entro', 'cómo accedo', 'tarjeta'];
+  if (registroKw.some((kw) => msg.includes(kw))) {
+    results.push(
+      `## Cómo Registrarse\n${knowledge.registro.nota}\nURL: ${knowledge.registro.url}\n` +
+      `Pasos:\n${knowledge.registro.pasos.map((p, i) => `${i + 1}. ${p}`).join('\n')}`
+    );
+  }
+
+  // Soporte / ayuda / demo / capacitación
+  const soporteKw = ['soporte', 'ayuda', 'demo', 'capacitación', 'tutorial', 'video', 'manual', 'aprend', 'campus', 'asesor', 'contacto'];
+  if (soporteKw.some((kw) => msg.includes(kw))) {
+    results.push(
+      `## Soporte y Capacitación\nCanales: ${knowledge.soporte.canales.join(' | ')}\n` +
+      `Capacitación: ${knowledge.soporte.capacitacion.join(' | ')}\n` +
+      `Demo gratuita: ${knowledge.soporte.demo}`
+    );
+  }
+
+  // Requerimientos técnicos
+  const reqKw = ['celular', 'tablet', 'dispositivo', 'instalar', 'instalación', 'requisito', 'requerimiento', 'internet', 'nube', 'web', 'navegador'];
+  if (reqKw.some((kw) => msg.includes(kw))) {
+    results.push(`## Requerimientos Técnicos\n${knowledge.requerimientos}`);
+  }
+
+  // Si el mensaje es muy corto o genérico, incluir propuesta de valor completa
+  const isGeneric = msg.split(' ').length <= 4 || ['qué es', 'que es', 'contame', 'info', 'información'].some((kw) => msg.includes(kw));
+  if (isGeneric && results.length === 1) {
+    results.push(
+      `## Propuesta de Valor\n${knowledge.propuesta_valor.modelo}\n${knowledge.propuesta_valor.puntos.join('\n')}\n\n` +
+      `## Capa Gratuita\n${knowledge.capa_gratuita.descripcion}\nIncluye: ${knowledge.capa_gratuita.incluye.join(', ')}`
+    );
+    const allFuncs = knowledge.funcionalidades.map((f) => f.nombre).join(', ');
+    results.push(`## Módulos disponibles\n${allFuncs}`);
+  }
+
+  // FAQs relevantes
+  const faqTriggers = ['?', 'cómo', 'cuánto', 'cuál', 'puedo', 'tiene', 'hay', 'existe'];
+  if (faqTriggers.some((kw) => msg.includes(kw))) {
     const relevantFaqs = knowledge.faq.filter((faq) => {
       const faqText = (faq.pregunta + ' ' + faq.respuesta).toLowerCase();
       return msg.split(' ').some((word) => word.length > 3 && faqText.includes(word));
     });
-
-    // Si no hay FAQs específicas, incluir todas
-    const faqsToInclude = relevantFaqs.length > 0 ? relevantFaqs : knowledge.faq;
-    const faqSection = faqsToInclude.map((f) => `P: ${f.pregunta}\nR: ${f.respuesta}`).join('\n\n');
-    results.push(`## Preguntas Frecuentes\n${faqSection}`);
+    const faqsToShow = relevantFaqs.length > 0 ? relevantFaqs : knowledge.faq.slice(0, 5);
+    results.push(
+      `## Preguntas Frecuentes\n` +
+      faqsToShow.map((f) => `P: ${f.pregunta}\nR: ${f.respuesta}`).join('\n\n')
+    );
   }
 
   return results.join('\n\n---\n\n');
